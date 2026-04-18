@@ -1,46 +1,91 @@
 <% layout("/layouts/boilerplate")%>
+<style>
+.show-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.show-img {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.card-text {
+  text-align: left;
+}
+
+/* MAP */
+#map {
+  height: 350px;
+  width: 90vh;
+}
+
+
+
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  h3 {
+    font-size: 1.4rem;
+  }
+  .card-text {
+    font-size: 0.9rem;
+    text-align:left;
+  }
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+   #map {
+    height: 250px;
+    width:250px;
+  }
+  
+}
+</style>
+
 <script>
   const mapToken="<%= process.env.MAP_TOKEN %>";
   const coordinates= <%- JSON.stringify(listing.geometry.coordinates) %>;
 </script>
 
-<div class="row mt-3">
-  <div class="col-8 offset-3">
-    <h3><%= listing.title %></h3>
-  </div>
-  <div class="card col-6 offset-3 show-card listing-card">
-    <img
+
+
+<div class="container mt-3 text-center">
+  <!-- Title -->
+  <h3 class="mb-3"><%= listing.title %></h3>
+
+  <!-- Card -->
+  <div class="card mx-auto show-card listing-card" style="max-width: 600px;">
+    <img 
       src="<%= listing.image.url %>"
-      class="card-img-top show-img"
+      class="card-img-top show-img img-fluid"
       alt="listing_image"
     />
     <div class="card-body">
-      <p class="card-text">owned by:<b><i><%= listing.owner.username %></i></b></p>
-         
-        <p class="card-text"><%= listing.description %></p>
-         <p class="card-text">&#8377;<%=listing.price.toLocaleString("en-IN")%></p>
-         <p class="card-text"><%=listing.location%> </p>
-         <p class="card-text"><%=listing.country%></p>
-      
+      <p class="card-text">Owned by: <b><i><%= listing.owner.username %></i></b></p>
+      <p class="card-text"><%= listing.description %></p>
+      <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-IN") %></p>
+      <p class="card-text"><%= listing.location %></p>
+      <p class="card-text"><%= listing.country %></p>
     </div>
   </div>
 
-  <br />
+  <!-- Buttons -->
+  <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
+  <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
+    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
+    <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+      <button class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+  <% } %>
 </div>
-<% if(currUser && listing.owner._id.equals(currUser._id)){ %>
-<div class="btns">
-  <a
-    href="/listings/<%= listing._id %>/edit"
-    class="btn btn-dark col-1 offset-3 edit-btn"
-    >Edit</a
-  >
-  <form method="post" action="/listings/<%= listing._id%>?_method=DELETE">
-    <button class="btn btn-dark offset-5">Delete</button>
-  </form>
-</div>
-<% } %>
 
-<div class="col-8 offset-3 mb-3">
+
+
+ <div class="col-8 offset-3 mb-3">
   
   <% if(currUser){ %>
       <hr />
@@ -99,7 +144,9 @@
     <% } %>
   </div>
   <% } %>
- </div>
+ </div> 
+
+ 
   <div class="col-6 offset-3 mb-3">
     <h3>Where you'll be</h3>
     <div id="map"></div>

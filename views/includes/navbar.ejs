@@ -18,6 +18,46 @@
     padding: 0.5rem 3rem 0.5rem 3rem;
     font-size: 1rem;
   }
+
+
+@media (max-width: 768px) {
+    .search-inp {
+        width: 100%;        /* take full width of screen */
+        font-size: 0.9rem;  /* slightly smaller text */
+        padding: 0.4rem 1rem;
+    }
+
+    .search-btn {
+        width: 100%;        /* button also full width */
+        margin-top: 0.5rem; /* spacing below input */
+    }
+
+    .navbar-nav .nav-link {
+        text-align: right;  /* keep nav links aligned right */
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+    /* Style the collapsed dropdown menu */
+.navbar-collapse {
+  background-color: #fff;   /* white background */
+  padding: 1rem;            /* spacing inside */
+  border-radius: 8px;       /* rounded corners */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
+/* Style the nav links inside dropdown */
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.navbar-nav .nav-link:last-child {
+  border-bottom: none; /* remove last border */
+}
+
+}
+
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
@@ -35,6 +75,7 @@
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
        </div>
+      
        <div class="navbar-nav ms-auto">
           <form class="d-flex" role="search">
             <input class="form-control me-2 search-inp" type="search" placeholder="Search Destinations" aria-label="Search"/>
@@ -44,6 +85,7 @@
           </form>
        </div>
 
+        
        <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Airbnb your home</a>
        <% if(!currUser){ %>

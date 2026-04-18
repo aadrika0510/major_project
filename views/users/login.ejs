@@ -1,4 +1,28 @@
 <% layout("/layouts/boilerplate")%>
+<style>
+  /* Center the login form and make it responsive */
+  form {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.4rem;
+    }
+    form {
+      padding: 1rem;
+    }
+    input,
+    button {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+  }
+</style>
 <div class="row mt-3">
   <h1 class="col-6 offset-3">Login to StayGo</h1>
   <div class="col-6 offset-3">
